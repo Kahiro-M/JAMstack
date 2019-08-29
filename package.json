@@ -1,0 +1,15 @@
+{
+  "dependencies": {},
+  "name": "JAMStack",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.0.0-rc.1"
+  },
+  "scripts": {
+    "dev": "vuepress dev",
+    "build": "vuepress build",
+    "eject": "vuepress eject"
+  }
+}
