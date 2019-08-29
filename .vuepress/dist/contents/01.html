@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>99分99秒は何時間何分何秒？</title>
+    <meta name="description" content="">
+    
+    
+    <link rel="preload" href="/assets/css/0.styles.e39f02ee.css" as="style"><link rel="preload" href="/assets/js/app.a0abd3e5.js" as="script"><link rel="preload" href="/assets/js/2.b4b04642.js" as="script"><link rel="preload" href="/assets/js/6.910f825a.js" as="script"><link rel="prefetch" href="/assets/js/3.f48b7bc9.js"><link rel="prefetch" href="/assets/js/4.2f35b444.js"><link rel="prefetch" href="/assets/js/5.4aed475e.js"><link rel="prefetch" href="/assets/js/7.97072cb5.js"><link rel="prefetch" href="/assets/js/8.d2c0f4c5.js"><link rel="prefetch" href="/assets/js/9.39c97814.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.e39f02ee.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="icon.png" alt="" class="logo"> <!----></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">Home</a></div><div class="nav-item"><a href="/contents/" class="nav-link router-link-active">Qiita</a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">Home</a></div><div class="nav-item"><a href="/contents/" class="nav-link router-link-active">Qiita</a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/" class="sidebar-link">JAMstack</a></li><li><a href="/contents/" class="sidebar-link">JAMstack構築の練習</a></li><li><a href="/contents/01.html" class="active sidebar-link">99分99秒は何時間何分何秒？</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/contents/01.html#時分秒に変換" class="sidebar-link">時分秒に変換</a></li><li class="sidebar-sub-header"><a href="/contents/01.html#やってみる" class="sidebar-link">やってみる</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/contents/01.html#ちなみに" class="sidebar-link">ちなみに...</a></li></ul></li></ul></li><li><a href="/contents/02.html" class="sidebar-link">セレクトボックス(プルダウン)を外部ファイルから作成＋リストのデータを取得(JavaScript)</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/contents/02.html#htmlを開いた時だけ別ファイルから読みだす" class="sidebar-link">HTMLを開いた時だけ別ファイルから読みだす</a></li><li class="sidebar-sub-header"><a href="/contents/02.html#作ったプルダウンの選択肢の情報を取得する" class="sidebar-link">作ったプルダウンの選択肢の情報を取得する</a></li></ul></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="_99分99秒は何時間何分何秒？"><a href="#_99分99秒は何時間何分何秒？" aria-hidden="true" class="header-anchor">#</a> 99分99秒は何時間何分何秒？</h1> <p>...わかりづれぇ</p> <h2 id="時分秒に変換"><a href="#時分秒に変換" aria-hidden="true" class="header-anchor">#</a> 時分秒に変換</h2> <p>あまりにもわかりづらいので、変換するプログラムを用意しました。</p> <div class="language-.js extra-class"><pre class="language-text"><code>class TimeConvert{
+  constructor(hour,min,sec){
+    this.hour = hour;
+    this.min = min;
+    this.sec = sec;
+  }
+
+  fixTime(){
+    //一時保管用の秒数に変換後、時→分→秒の順に整形する。
+    var tmpHour = this.hour;
+    var tmpMin = this.min;
+    var tmpSec = this.sec;
+
+    //秒数に変換
+    var tmpTime = this.conv2sec(tmpHour,tmpMin,tmpSec);
+
+    //時に整形
+    this.hour = this.conv2hour(0,0,tmpTime);
+    //一時保管用の秒数を更新（時に整形した分を差し引く）
+    tmpTime = tmpTime - this.hour*3600;
+
+    //分に整形
+    this.min = this.conv2min(0,0,tmpTime);
+    //一時保管用の秒数を更新（分に整形した分を差し引く）
+    tmpTime = tmpTime - this.min*60;
+
+    //秒に整形（小数などの整理）
+    this.sec = this.conv2sec(0,0,tmpTime);
+
+    //結果表示
+    console.log(this.hour,&quot;h&quot;,this.min,&quot;m&quot;,this.sec,&quot;s&quot;);
+  }
+
+  conv2hour(inH,inM,inS){
+    return Math.floor(inH + inM/60 + inS/(60*60));
+  }
+
+  conv2min(inH,inM,inS){
+    return Math.floor(inH*60 + inM + inS/60);
+  }
+
+  conv2sec(inH,inM,inS){
+    return Math.floor(inH*60*60 + inM*60 + inS);
+  }
+}
+</code></pre></div><h2 id="やってみる"><a href="#やってみる" aria-hidden="true" class="header-anchor">#</a> やってみる</h2> <div class="language-console extra-class"><pre class="language-text"><code>//変換クラスをnewするときに変換したい時間をセット。
+&gt; a = new TimeConvert(0,99,59)
+
+//セットした値が入っているか確認。
+&gt; a
+TimeConvert {hour: 0, min: 99, sec: 59}
+hour: 0
+min: 99
+sec: 59
+
+//変換関数実行。
+&gt; a.fixTime()
+1 &quot;h&quot; 39 &quot;m&quot; 59 &quot;s&quot;
+</code></pre></div><p><strong>でました！</strong> <strong>99分59秒 = 1時間39分59秒です！</strong></p> <p>暗算ができないときにどうぞ！</p> <h3 id="ちなみに"><a href="#ちなみに" aria-hidden="true" class="header-anchor">#</a> ちなみに...</h3> <p>タイトルにある<strong>99分99秒</strong>ですが、</p> <div class="language-console extra-class"><pre class="language-text"><code>&gt; b = new TimeConvert(0,99,99)
+&gt; b.fixTime()
+1 &quot;h&quot; 40 &quot;m&quot; 39 &quot;s&quot;
+</code></pre></div><p><strong>1時間40分39秒です！</strong></p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/contents/" class="prev router-link-active">
+          JAMstack構築の練習
+        </a></span> <span class="next"><a href="/contents/02.html">
+          セレクトボックス(プルダウン)を外部ファイルから作成＋リストのデータを取得(JavaScript)
+        </a>
+        →
+      </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.a0abd3e5.js" defer></script><script src="/assets/js/2.b4b04642.js" defer></script><script src="/assets/js/6.910f825a.js" defer></script>
+  </body>
+</html>

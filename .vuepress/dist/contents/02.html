@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>セレクトボックス(プルダウン)を外部ファイルから作成＋リストのデータを取得(JavaScript)</title>
+    <meta name="description" content="">
+    
+    
+    <link rel="preload" href="/assets/css/0.styles.e39f02ee.css" as="style"><link rel="preload" href="/assets/js/app.a0abd3e5.js" as="script"><link rel="preload" href="/assets/js/2.b4b04642.js" as="script"><link rel="preload" href="/assets/js/7.97072cb5.js" as="script"><link rel="prefetch" href="/assets/js/3.f48b7bc9.js"><link rel="prefetch" href="/assets/js/4.2f35b444.js"><link rel="prefetch" href="/assets/js/5.4aed475e.js"><link rel="prefetch" href="/assets/js/6.910f825a.js"><link rel="prefetch" href="/assets/js/8.d2c0f4c5.js"><link rel="prefetch" href="/assets/js/9.39c97814.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.e39f02ee.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="icon.png" alt="" class="logo"> <!----></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">Home</a></div><div class="nav-item"><a href="/contents/" class="nav-link router-link-active">Qiita</a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">Home</a></div><div class="nav-item"><a href="/contents/" class="nav-link router-link-active">Qiita</a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/" class="sidebar-link">JAMstack</a></li><li><a href="/contents/" class="sidebar-link">JAMstack構築の練習</a></li><li><a href="/contents/01.html" class="sidebar-link">99分99秒は何時間何分何秒？</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/contents/01.html#時分秒に変換" class="sidebar-link">時分秒に変換</a></li><li class="sidebar-sub-header"><a href="/contents/01.html#やってみる" class="sidebar-link">やってみる</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/contents/01.html#ちなみに" class="sidebar-link">ちなみに...</a></li></ul></li></ul></li><li><a href="/contents/02.html" class="active sidebar-link">セレクトボックス(プルダウン)を外部ファイルから作成＋リストのデータを取得(JavaScript)</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/contents/02.html#htmlを開いた時だけ別ファイルから読みだす" class="sidebar-link">HTMLを開いた時だけ別ファイルから読みだす</a></li><li class="sidebar-sub-header"><a href="/contents/02.html#作ったプルダウンの選択肢の情報を取得する" class="sidebar-link">作ったプルダウンの選択肢の情報を取得する</a></li></ul></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="セレクトボックス-プルダウン-を外部ファイルから作成＋リストのデータを取得-javascript"><a href="#セレクトボックス-プルダウン-を外部ファイルから作成＋リストのデータを取得-javascript" aria-hidden="true" class="header-anchor">#</a> セレクトボックス(プルダウン)を外部ファイルから作成＋リストのデータを取得(JavaScript)</h1> <hr> <h1 id="選択肢を別ファイルで管理したい"><a href="#選択肢を別ファイルで管理したい" aria-hidden="true" class="header-anchor">#</a> 選択肢を別ファイルで管理したい</h1> <p>ユーザに数値を入力させる場合、セレクトボックス（プルダウン）があると楽。
+だが、選択肢とそれに付随する数値が固定なら直接タグに書き込めばよいが、選択肢や数値が可変で外部ファイルとして管理したい場合がある。
+その場合は、リストを格納している配列を別ファイルで作成し、読みだしてあげればい良い。
+jQueryなどを使えばもう少しスマートに書けると思うが、自分の環境で導入ができなかったから素のJavaScriptでやる。</p> <h2 id="htmlを開いた時だけ別ファイルから読みだす"><a href="#htmlを開いた時だけ別ファイルから読みだす" aria-hidden="true" class="header-anchor">#</a> HTMLを開いた時だけ別ファイルから読みだす</h2> <p>クリック時など細かく設定することもできるが、よほどのことがない限り一回読み出せば用済みになる。
+一回だけ読みたい場合は、bodyタグなどにonload要素で実行させるればよい。</p> <div class="language-選択肢表示.html extra-class"><pre class="language-text"><code>&lt;body onload=&quot;readFirst()&quot;&gt;
+ &lt;select id=&quot;PullDownList&quot;&gt;&lt;/select&gt;
+&lt;/body&gt;
+</code></pre></div><div class="language-一度だけ実行(セレクトボックスが1つだけの場合).js extra-class"><pre class="language-text"><code>function readFirst(){
+    //プルダウンリストをループ処理で値を取り出してセレクトボックスにセットする
+    for(var i=0;i&lt;list.length;i++){
+      let opt = document.createElement(&quot;option&quot;);
+      opt.value = list[i].val;  //value値
+      opt.text = list[i].txt;   //テキスト値
+      document.getElementById(&quot;PullDownList&quot;).appendChild(opt);
+    }
+  };
+</code></pre></div><div class="language-一度だけ実行(セレクトボックスが複数の場合).js extra-class"><pre class="language-text"><code>function readFirst(){
+    //プルダウンリストをループ処理で値を取り出してセレクトボックスにセットする
+	let opt = document.createElement(&quot;option&quot;);
+	let tmp = document.getElementsByClassName(&quot;PullDownList&quot;);
+	for(var i=0;i&lt;list.length;i++){
+		for(var j=0;j&lt;tmp.length;j++){
+			opt = document.createElement(&quot;option&quot;);
+			opt.value = list[i].val;  //value値
+			opt.text = list[i].txt;   //テキスト値
+			tmp[j].appendChild(opt);
+		}
+	}
+  };
+</code></pre></div><div class="language-プルダウンリスト.js extra-class"><pre class="language-text"><code> //プルダウンメニューの配列(動的に指定するためのリスト)
+ var list = [
+    {val:&quot;1&quot;, txt:&quot;P1&quot;},
+    {val:&quot;2&quot;, txt:&quot;P2&quot;},
+    {val:&quot;3&quot;, txt:&quot;P3&quot;},
+    {val:&quot;4&quot;, txt:&quot;P4&quot;},
+    {val:&quot;5&quot;, txt:&quot;P5&quot;},
+ ];
+
+</code></pre></div><h2 id="作ったプルダウンの選択肢の情報を取得する"><a href="#作ったプルダウンの選択肢の情報を取得する" aria-hidden="true" class="header-anchor">#</a> 作ったプルダウンの選択肢の情報を取得する</h2> <p>いろいろ選択⇒実行という流れにしたいなら、ボタンを使うと良い。</p> <div class="language-情報取得ボタン.html extra-class"><pre class="language-text"><code>&lt;input type=&quot;button&quot; value=&quot;情報取得ボタン&quot; onClick=&quot;get('PullDownList')&quot;&gt;
+
+</code></pre></div><div class="language-情報取得.js extra-class"><pre class="language-text"><code>function get(idName) {
+    var chiceColor = document.getElementById(idName);
+    console.log(chiceColor.value);
+}
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/contents/01.html" class="prev">
+          99分99秒は何時間何分何秒？
+        </a></span> <!----></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.a0abd3e5.js" defer></script><script src="/assets/js/2.b4b04642.js" defer></script><script src="/assets/js/7.97072cb5.js" defer></script>
+  </body>
+</html>
